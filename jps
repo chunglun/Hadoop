@@ -1,0 +1,6 @@
+hduser@lu-virtual-machine:/usr/local/hadoop/etc/hadoop$ jps
+6243 ResourceManager
+6457 NodeManager
+15486 Jps
+
+
