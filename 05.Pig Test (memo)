@@ -1,0 +1,15 @@
+(1) download the data set in http://www.hadoop.tw/excite-small.log 
+(2) run Pig script on Hadoop MapReduce (YARN)
+在 Hadoop MapReduce (YARN) 上執行 pig 腳本， 將以 HDFS 上的 pig_output 目錄作為驗證
+
+(Pig Script)
+ log = LOAD 'excite-small.log' AS (user, timestamp, query);  
+ grpd = GROUP log BY user;                                   
+ cntd = FOREACH grpd GENERATE group, COUNT(log) AS cnt;      
+ fltrd = FILTER cntd BY cnt > 50;                            
+ srtd = ORDER fltrd BY cnt;                                  
+ STORE srtd INTO '/tmp/pig_output';
+
+Score:
+resulting directory can be found on HDFS (7%)
+the result inside /tmp/pig_output is correct (8%)
