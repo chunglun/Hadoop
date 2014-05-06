@@ -4,7 +4,7 @@ $ wget http://www.trieuvan.com/apache/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.ta
 $ sudo tar vxzf hadoop-2.4.0.tar.gz –C /usr/local
 $ cd /usr/local
 $ sudo mv hadoop-2.4.0 hadoop
-$ sudo chown –R hdfs:hadoop hadoop
+$ sudo chown –R hduser:hadoop hadoop
 
 (Set Hadoop Environment Variables)
 $ cd ~
@@ -56,8 +56,8 @@ mapreduce.framework.name
 yarn
 
 $ cd ~
-$ mkdir –p mydata/hdfs/namenode
-$ mkdir –p mydata/hdfs/datanode
+$ mkdir –p mydata/hduser/namenode
+$ mkdir –p mydata/hduser/datanode
 $ cd /usr/local/hadoop/etc/hadoop
 $ nano hdfs-site.xml
 
@@ -67,10 +67,10 @@ dfs.replication
 1
 
 dfs.namenode.name.dir
-file:/home/hdfs/mydata/hdfs/namenode
+file:/home/hduser/mydata/hdfs/namenode
 
 dfs.datanode.data.dir
-file:/home/hdfs/mydata/hdfs/datanode
+file:/home/hduser/mydata/hdfs/datanode
 
 (Format Namenode)
 $ hdfs namenode -format
