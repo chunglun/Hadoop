@@ -19,3 +19,6 @@ $ cd /bin/zkServer.sh start
 
 (test if ZooKeeper is running)
 $ echo ruok | nc localhost 2181
+
+(connect to ZooKeeper)
+$ cin/zkCli.sh -server 127.0.0.1:2181
