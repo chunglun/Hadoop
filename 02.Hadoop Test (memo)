@@ -1,6 +1,10 @@
 (1) jps --> display the Java processes of NameNode and DataNode
 (2) HDFS Web Interface (http://0.0.0.0:50070) can be connected and the Live Node = 1
 (3) Can upload files of size 100MB to HDFS
+(4) jps --> display the Java processes of ResourceManager and NodeManager
+(5) Yarn Web Interface (http://0.0.0.0:8088) can be connected and the Live Node = 1
+(6) Can run the hadoop example "pi"
+ 
 
 dd if=/dev/zero of=100mb.img bs=1M count=100  
 hadoop fs -put 100mb.img test.img
@@ -10,3 +14,6 @@ jps displays the result of NameNode (2%)
 HDFS has been setting on hdfs://127.0.0.1:8020 (2%)
 jps displays the result of DataNode (2%)
 Can see the file "test.img" on HDFS (7%)
+jps displays the result of ResourceManager (5%)
+ResourceManager is on http://0.0.0.0:8088 and the Live Node = 1 (5%)
+jps displays the result of NodeManager (10%)
