@@ -1,0 +1,34 @@
+(create new user)
+# adduser hduser
+# groupadd hdgroup
+# usermod -g hdgroup hduser
+
+(verify by issue id)
+# id hduser
+
+(give hduser access to sudo commands)
+# visudo
+-------------------------------------
+(add the line to visudo)
+## Allow root to run any commands anywhere
+root     ALL=(ALL)      ALL
+hduser   ALL=(ALL)      ALL
+## Allows members of the 'sys' group to run networking, software,
+-------------------------------------
+
+(install JDK)
+# yum install java-1.7.0-openjdk*
+
+(verify the java)
+# java -version
+
+(the directory etc/alternatives contains a link to java installation)
+[hduser@localhost alternatives]# ls -s java
+
+(set the JAVA_HOME by editing ~/.bashrc)
+
+--------------------------------------
+# User specific aliases and functions
+export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openldk.x86_64/
+export PATH=$PATH:$JAVA_HOME
+--------------------------------------
