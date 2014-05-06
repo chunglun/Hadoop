@@ -1,0 +1,17 @@
+[Prerequistive - JDK]
+$ sudo apt-get install openjdk-7-jdk
+$ java –version
+
+[Prerequistive - SSH]
+$ sudo apt-get install openssh-server
+
+[Add Hadoop Group and User]
+$ sudo addgroup hadoop
+$ sudo adduser –ingroup hadoop hdfs
+$ sudo adduser hdfs sudo
+(After user is created, re-login into Ubuntu using hdfs)
+
+(Set SSH Certificate)
+$ ssh-keygen –t rsa –P ‘’
+$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+$ ssh localhost
