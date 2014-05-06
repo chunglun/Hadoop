@@ -1,0 +1,88 @@
+(Download Hadoop 2.4.0)
+$ cd ~
+$ wget http://www.trieuvan.com/apache/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz
+$ sudo tar vxzf hadoop-2.4.0.tar.gz –C /usr/local
+$ cd /usr/local
+$ sudo mv hadoop-2.4.0 hadoop
+$ sudo chown –R hdfs:hadoop hadoop
+
+(Set Hadoop Environment Variables)
+$ cd ~
+$ nano .bashrc
+
+Paste following to the end of the file
+#Hadoop variables
+export JAVA_HOME=/usr/lib/jvm/jdk/
+export HADOOP_INSTALL=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_INSTALL/bin
+export PATH=$PATH:$HADOOP_INSTALL/sbin
+export HADOOP_MAPRED_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_HOME=$HADOOP_INSTALL
+export HADOOP_HDFS_HOME=$HADOOP_INSTALL
+export YARN_HOME=$HADOOP_INSTALL
+###End of paste
+
+$ cd /usr/local/hadoop/etc/hadoop
+$ nano hadoop-env.sh
+
+#modify JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/jdk/
+
+(Re-login into Ubuntu using hdfs and check the hadoop version)
+$ hadoop version
+
+(Configure Hadoop)
+$ cd /usr/local/hadoop/etc/hadoop
+$ nano core-site.xml
+
+#paste following between <configuration>
+fs.default.name
+hdfs://localhost:8020
+
+$ nano yarn-site.xml
+
+#paste following between <configuration>
+yarn-nodemanager.aux-services
+mapreduce_shuffle
+
+yarn-nodemanager.aux-services.mapreduce.shuffle.class
+org.apache.hadoop.mapred.ShuffleHandler
+
+$ mv mapred-site.xml.template mapred-site.xml
+$ nano mapred-site.xml
+
+#paste following between <configuration>
+mapreduce.framework.name
+yarn
+
+$ cd ~
+$ mkdir –p mydata/hdfs/namenode
+$ mkdir –p mydata/hdfs/datanode
+$ cd /usr/local/hadoop/etc/hadoop
+$ nano hdfs-site.xml
+
+#paste following between <configuration>
+
+dfs.replication
+1
+
+dfs.namenode.name.dir
+file:/home/hdfs/mydata/hdfs/namenode
+
+dfs.datanode.data.dir
+file:/home/hdfs/mydata/hdfs/datanode
+
+(Format Namenode)
+$ hdfs namenode -format
+
+(Start Hadoop Service)
+$ start-dfs.sh
+$ start-yarn.sh
+$ jps
+
+(Run Hadoop Example)
+$ cd /usr/local/hadoop
+$ hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 2 5
+
+[HDFS Web Interface]
+http://<NameNodeIP>:50070 (by default)
