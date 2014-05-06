@@ -1,0 +1,16 @@
+https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-Requirements
+
+(Download and Install Hive)
+$ tar –xzvf hive-0.13.0.tar.gz
+$ cd /home/hduser/hive
+$ export HIVE_HOME={{pwd}}
+$ export PATH=$HIVE_HOME/bin:$PATH
+
+(Build Hive)
+$ svn co http://svn.apache.org/repos/asf/hive/trunk hive
+$ cd hive
+$ mvn clean install –Phadoop-2, dist
+$ cd packaging/target/apache-hive-0.13.0-SNAPSHOT-bin/apache-hive-0.13.0-SNAPSHOT-bin
+$ ls
+
+(Run Hive)
