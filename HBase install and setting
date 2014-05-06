@@ -1,0 +1,68 @@
+http://archive.cloudera.com/cdh/3/hbase-0.90.1-cdh3u0/quickstart.html#d0e89
+https://hbase.apache.org/book/quickstart.html
+
+(Extra steps)
+In /etc/hosts there are two entries: 127.0.0.1 and 127.0.1.1,
+change the second entry 127.0.1.1 to 127.0.0.1 otherwise it gives
+error: org.apache.hadoop.hbase.PleaseHoldException: Master is initializing
+
+# in /etc/hosts
+127.0.0.1 localhost
+127.0.0.1 ubuntu.ubuntu-domain ubuntu
+
+(Download HBase http://archive.apache.org/dist/hbase/stable/hbase-0.94.18.tar.gz)
+$ tar –xvf hbase-0.94.18.tar.gz
+$ sudo mkdir /home/lu/hbase
+$ mv hbase-0.94.18 /home/lu/hbase
+
+(Configure HBase with Java)
+$ cd /home/lu/hbase/conf
+$ nano hbase-env.sh
+
+export JAVA_HOME=/home/lu/java/….
+
+$ cd ~
+$ gedit ~/.bashrc
+
+export HBASE_HOME=/home/lu/ hbase
+export PATH=$PATH:$HBASE_HOME/bin
+
+(Change the directory to where you want to HBase to write to)
+$ cd /home/lu/hbase/conf
+$ nano hbase-site.xml
+
+hbase.rootdir = hdfs://localhost:8020/hbase
+
+# replace DIRECTORY with the path to the directory where HBase and ZooKeeper write their data
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>file:///DIRECTORY/hbase</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/DIRECTORY/zookeeper</value>
+  </property>
+</configuration>
+
+(Start HBase)
+HBASE_PATH$ bin/start-hbase.sh
+HBASE_PATH$ bin/hbase shell
+create 't1','f1'
+put 't1','r1','f1','v1'     
+put 't1','r1','f1','v2'     
+put 't1','r1','f1:c1','v2'  
+put 't1','r1','f1:c2','v3'  
+scan 't1'   
+
+(exit the shell)
+>exit
+
+(Stop HBase)
+HBASE_PATH$ bin/stop-hbase.sh
+
+(Use the web interfaces)
+For master: http://localhost:60010
+For region server: http://localhost:60030
