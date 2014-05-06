@@ -1,0 +1,12 @@
+(1) jps --> display the Java processes of NameNode and DataNode
+(2) HDFS Web Interface (http://0.0.0.0:50070) can be connected and the Live Node = 1
+(3) Can upload files of size 100MB to HDFS
+
+dd if=/dev/zero of=100mb.img bs=1M count=100  
+hadoop fs -put 100mb.img test.img
+
+Score:
+jps displays the result of NameNode (2%)
+HDFS has been setting on hdfs://127.0.0.1:8020 (2%)
+jps displays the result of DataNode (2%)
+Can see the file "test.img" on HDFS (7%)
