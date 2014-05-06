@@ -1,0 +1,4 @@
+Score:
+jps displays HMaster (5%)
+jps displays HRegionServer (5%)
+HBase shell can be used correctly and scan 't1' table can get at least 1 record (10%)
