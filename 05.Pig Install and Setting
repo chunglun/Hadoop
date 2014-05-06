@@ -1,0 +1,41 @@
+http://archanaschangale.wordpress.com/2013/10/14/pig-installation-on-ubuntu/comment-page-1/
+https://pig.apache.org/docs/r0.7.0/setup.html
+https://www.inkling.com/read/hadoop-definitive-guide-tom-white-3rd/chapter-11/installing-and-running-pig
+
+(Download Pig and unpack it)
+http://pig.apache.org/releases.html#Download
+($ export PATH=/<PigPath>/pig-0.12.1/bin:$PATH)
+($ pig –help)
+($ pig)
+
+$ tar –xvf pig-0.12.1.tar.gz
+$ sudo mkdir /home/hduser/pig
+$ mv pig-0.12.1 /home/hduser/pig
+$ cd ~
+$ gedit ~/.bashrc
+
+# paste 
+export PIG_HOME=/home/hduser/pig
+export PATH=$PATH:$PIG_HOME/bin
+# end
+
+(Restart the computer)
+
+(Test the installation)
+$ pig -h
+
+----------------------------------------------------------------
+[Running the Pig Scripts in Mapredue Mode]
+
+(Start pig in mapreduce mode)
+(move to the pigtmp directory)
+(copy the Pig script file from pigtmp directpry to the HDFS directory)
+$ hadoop fs -copyFromLocal exectite.log.bz2
+
+(Set the HADOOP_CONF_DIR environment variable to the location of core-site.xml, hdfs-site.xml and mapred-site.xml)
+
+$ java -cp $PIGDIR/pig.jar:$HADOOP_CONF_DIR org.apache.pig.Main script1-hadoop.pig
+
+(Review the result files, located in the script1-hadoop-results HDFS directory)
+$ hadoop fs -ls script1-hadoop-results
+$ hadoop fs -cat 'script1-hadoop-results/*' | less
