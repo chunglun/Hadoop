@@ -7,9 +7,9 @@ $ sudo apt-get install openssh-server
 
 [Add Hadoop Group and User]
 $ sudo addgroup hadoop
-$ sudo adduser –ingroup hadoop hdfs
-$ sudo adduser hdfs sudo
-(After user is created, re-login into Ubuntu using hdfs)
+$ sudo adduser –ingroup hadoop hduser
+$ sudo adduser hduser sudo
+(After user is created, re-login into Ubuntu using hduser)
 
 (Set SSH Certificate)
 $ ssh-keygen –t rsa –P ‘’
