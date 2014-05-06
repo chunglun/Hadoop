@@ -1,0 +1,21 @@
+http://zookeeper.apache.org/doc/r3.4.6/zookeeperStarted.html#sc_Prerequisites
+
+(download and unpack zooKeeper)
+$ tar xzf zookeeper-3.4.6.tar.gz
+
+$ export ZOOKEEPER_INSTALL=/home/hduser/zookeeper
+$ export PATH=$PATH:ZOOKEEPER_INSTALL/bin
+
+(set up configuration file – create conf/zoo.cfg)
+$ nano conf/zoo.cfg
+# paste inside conf/zoo.cfg
+
+tickTime=2000
+dataDir=/home/hduser/zookeeper
+clientPort=2181
+
+(start ZooKeeper)
+$ cd /bin/zkServer.sh start
+
+(test if ZooKeeper is running)
+$ echo ruok | nc localhost 2181
