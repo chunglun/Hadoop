@@ -12,23 +12,23 @@ error: org.apache.hadoop.hbase.PleaseHoldException: Master is initializing
 
 (Download HBase http://archive.apache.org/dist/hbase/stable/hbase-0.94.18.tar.gz)
 $ tar –xvf hbase-0.94.18.tar.gz
-$ sudo mkdir /home/lu/hbase
-$ mv hbase-0.94.18 /home/lu/hbase
+$ sudo mkdir /home/hduser/hbase
+$ mv hbase-0.94.18 /home/hduser/hbase
 
 (Configure HBase with Java)
-$ cd /home/lu/hbase/conf
+$ cd /home/hduser/hbase/conf
 $ nano hbase-env.sh
 
-export JAVA_HOME=/home/lu/java/….
+export JAVA_HOME=<Java path>
 
 $ cd ~
 $ gedit ~/.bashrc
 
-export HBASE_HOME=/home/lu/ hbase
+export HBASE_HOME=/home/hduser/hbase
 export PATH=$PATH:$HBASE_HOME/bin
 
 (Change the directory to where you want to HBase to write to)
-$ cd /home/lu/hbase/conf
+$ cd /home/hduser/hbase/conf
 $ nano hbase-site.xml
 
 hbase.rootdir = hdfs://localhost:8020/hbase
