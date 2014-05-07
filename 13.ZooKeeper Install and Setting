@@ -3,8 +3,8 @@
 # tar zxvf zookeeper-3.4.6.tar.gz -C /usr/local
 
 # cd /usr/local
-# sudo mkdir zookeeper
-# mv /zookeeper-3.4.5 /usr/local/zookeeper/
+//# sudo mkdir zookeeper
+# mv /zookeeper-3.4.5 /zookeeper
 
 # cd ~/ && vim .bashrc
 # export ZOOKEEPER=/usr/local/zookeeper/zookeeper/bin
