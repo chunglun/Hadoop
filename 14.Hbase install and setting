@@ -1,0 +1,65 @@
+(download)
+# wget http://mirror.esocc.com/apache/hbase/hbase-0.94.19/hbase-0.94.19.tar.gz
+# tar zxvf hbase-0.94.19.tar.gz -C /usr/local/
+# mv hbase-0.94.19 hbase
+
+# echo $JAVA_HOME
+# nano conf/hbase-env.sh
+-----------------------------------------
+export JAVA_HOME=/usr/lib/jvm/java
+-----------------------------------------
+
+(edit conf/hbase-site.xml)
+-----------------------------------------
+(use local file system instead of HDFS)
+<configuration>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://localhost:8020/hbase</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/home/hbase/zookeeper</value>
+  </property>
+</configuration>
+-----------------------------------------
+OR
+-----------------------------------------
+(use HDFS)
+<configuration>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://localhost:8020/hbase</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>hdfs://localhost:8020/zookeeper</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.clientPort</name>
+    <value>2181</value>
+    <description>Property from ZooKeeper's config zoo.cfg.
+                 The port at which the clients will connect.
+    </description>
+  </property>
+</configuration>
+-----------------------------------------
+
+(start hbase)
+# cd /usr/local/hbase/bin
+# ./start-hbase.sh
+
+(start hbase shell)
+# ./hbase shell
+
+(enter data)
+hbase(main):001:0> create 't1','f1'
+hbase(main):001:0> put 't1','r1','f1','v1'     
+hbase(main):002:0> put 't1','r1','f1','v2'     
+hbase(main):003:0> put 't1','r1','f1:c1','v2'  
+hbase(main):004:0> put 't1','r1','f1:c2','v3'  
+hbase(main):005:0> scan 't1'        
+hbase(main):006:0> exit
+
+(stop hbase)
+# ./stop-hbase.sh
