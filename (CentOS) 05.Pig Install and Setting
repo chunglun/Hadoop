@@ -1,0 +1,37 @@
+(download)
+# wget http://apache.mirrors.lucidnetworks.net/pig/pig-0.12.1/pig-0.12.1.tar.gz
+# tar zxvf pig-0.12.1.tar.gz -C /usr/local/
+# mv pig-0.12.1 pig
+
+(set PATH)
+# export PATH=/usr/local/pig/bin:$PATH
+
+# pig -help
+
+(test Hadoop availability)
+# hadoop dfs -ls/
+
+(test Pig)
+# pig
+........
+........
+grunt> cd hdfs:///
+grunt> ls
+........
+........
+grunt>
+
+(get some test data)
+grunt> mkdir test
+grunt> cd test
+grunt> copyFromLocal /home/hduser/excite-small.log
+grunt> ls
+......
+
+(read file in)
+grunt> log = LOAD 'excite-small.log' AS (user, timestamp, query);  
+grunt> grpd = GROUP log BY user;
+grunt> cntd = FOREACH grpd GENERATE group, COUNT(log) AS cnt;
+grunt> fltrd = FILTER cntd BY cnt > 50;
+grunt> srtd = ORDER fltrd BY cnt;
+grunt> STORE srtd INTO '/tmp/pig_output';
