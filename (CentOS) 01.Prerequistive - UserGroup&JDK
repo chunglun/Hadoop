@@ -1,3 +1,9 @@
+(isntall nano)
+# yum install nano
+(install wget)
+# yum install wget
+
+
 (create new user)
 # adduser hduser
 # groupadd hdgroup
