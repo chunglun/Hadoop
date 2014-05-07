@@ -1,0 +1,22 @@
+(download)
+# wget http://www.us.apache.org/dist/hive/hive-0.13.0/hive-0.13.0.tar.gz
+# tar zxvf hive-0.13.0.tar.gz -C /usr/local/
+# mv hive-0.13.0 hive
+# chown -R hduser hive
+
+(set env)
+# su - hadoop
+# export HADOOP_HOME=/usr/local/hadoop
+# export HADOOP_PREFIX=/usr/local/hadoop
+# export HIVE_HOME=/usr/local/hive
+# export PATH=$HIVE_HOME/bin:$PATH
+
+(start hive)
+# cd /usr/local/hive
+# $HADOOP_HOME/bin/hadoop fs -mkdir /tmp
+# $HADOOP_HOME/bin/hadoop fs -mkdir /user/hive/warehouse
+# $HADOOP_HOME/bin/hadoop fs -chmod g+w /tmp
+# $HADOOP_HOME/bin/hadoop fs -chmod g+w /user/hive/warehouse
+# bin/hive
+
+(create table and test)
