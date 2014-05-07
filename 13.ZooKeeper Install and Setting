@@ -1,0 +1,48 @@
+(donwload)
+# wget http://apache.petsads.us/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
+# tar zxvf zookeeper-3.4.6.tar.gz -C /usr/local
+
+# cd /usr/local
+# sudo mkdir zookeeper
+# mv /zookeeper-3.4.5 /usr/local/zookeeper/
+
+# cd ~/ && vim .bashrc
+# export ZOOKEEPER=/usr/local/zookeeper/zookeeper/bin
+
+# source .bashrc
+# echo $ZOOKEEPER
+
+(set up zoo.cfg)
+cd zookeeper-3.4.6/conf
+cp zoo_sample.cfg zoo.cfg
+nano zoo.cfg
+----------------------------------------------------
+# The number of milliseconds of each tick
+tickTime=2000
+# The number of ticks that the initial
+# synchronization phase can take
+initLimit=10
+# The number of ticks that can pass between
+# sending a request and getting an acknowledgement
+syncLimit=5
+# the directory where the snapshot is stored.
+# do not use /tmp for storage, /tmp here is just
+# example sakes.
+dataDir=/usr/local/var/run/zookeeper/data
+# the port at which the clients will connect
+clientPort=2181
+#
+# Be sure to read the maintenance section of the
+# administrator guide before turning on autopurge.
+#
+# http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
+#
+# The number of snapshots to retain in dataDir
+autopurge.snapRetainCount=3
+# Purge task interval in hours
+# Set to "0" to disable auto purge feature
+autopurge.purgeInterval=1
+----------------------------------------------------
+
+# sudo $ZOOKEEPER/zkServer.sh start
+# sudo $ZOOKEEPER/zkServer.sh stop
