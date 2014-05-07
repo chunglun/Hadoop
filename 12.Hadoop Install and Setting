@@ -1,0 +1,109 @@
+(download Hadoop)
+# wget http://apache.cdpa.nsysu.edu.tw/hadoop/common/hadoop-2.4.0/hadoop-2.4.0.tar.gz
+# tar xzvf hadoop-2.4.0.tar.gz
+# sudo mv hadoop-2.4.0 /usr/local/hadoop
+# sudo chown -R hduser:hdgroup /usr/local/hadoop
+
+(create namenode and datanode directories)
+# mkdir -p ~/home/hduser/hdfs/namenode
+# mkdir -p ~/home/hduser/hdfs/datanode
+
+(configure Hadoop)
+# nano ~/.bashrc
+--------------------------------------------------
+export HADOOP_INSTALL=/usr/local/hadoop
+export HADOOP_MAPRED_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_HOME=$HADOOP_INSTALL
+export HADOOP_HDFS_HOME=$HADOOP_INSTALL
+export YARN_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_INSTALL/lib/native
+export PATH=$PATH:$HADOOP_INSTALL/sbin
+export PATH=$PATH:$HADOOP_INSTALL/bin
+--------------------------------------------------
+
+# source ~/.bashrc
+
+(modify mapred-site.xml, yarn-site.xml, core-site.xml,
+ hdfs-site.xml, and hadoop-env.sh, in /usr/local/hadoop/etc/hadoop/)
+
+# cd /usr/local/hadoop/etc/hadoop/
+# cp mapred-site.xml.template mapred-site.xml
+# nano mapred-site.xml
+--------------------------------------------------
+(Add the following text between the configuration tabs.)
+<property>
+  <name>mapreduce.framework.name</name>
+  <value>yarn</value>
+</property>
+--------------------------------------------------
+
+# nano yarn-site.xml
+--------------------------------------------------
+(Add the following text between the configuration tabs.)
+<property>
+  <name>yarn.nodemanager.aux-services</name>
+  <value>mapreduce_shuffle</value>
+</property>
+--------------------------------------------------
+
+# nano core-site.xml
+--------------------------------------------------
+(Add the following text between the configuration tabs.)
+<property>
+  <name>fs.default.name</name>
+  <value>hdfs://localhost:8020</value>
+</property>
+--------------------------------------------------
+
+# nano hdfs-site.xml
+--------------------------------------------------
+(Add the following text between the configuration tabs.)
+<property>
+ <name>dfs.replication</name>
+ <value>1</value>
+</property>
+
+<property>
+  <name>dfs.name.dir</name>
+  <value>file:///home/hduser/hdfs/namenode</value>
+</property>
+
+<property>
+  <name>dfs.data.dir</name>
+  <value>file:///home/hduser/hdfs/datanode</value>
+</property>
+--------------------------------------------------
+
+# nano hadoop-env.sh
+--------------------------------------------------
+(add an entry for JAVA_HOME)
+export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
+--------------------------------------------------
+
+(format the namenode)
+[hduser@localhost ~]# hdfs namenode -format
+
+[hduser@localhost namenode]# start-dfs.sh
+[hduser@localhost namenode]# start-yarn.sh
+[hduser@localhost ~]# jps
+
+(test the installation)
+(list abailable tests)
+[hduser@localhost hdfs] hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.4.0-tests.jar
+
+(TestDFSIO)
+[hduser@localhost hdfs] hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.4.0-tests.jar TestDFSIO -write -nrFiles 10 -fileSuze 100
+
+[hduser@localhost hdfs] hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.4.0-tests.jar TestDFSIO -read -nrFiles 10 -fileSuze 100
+
+(map/reduce Test)
+[hduser@localhost hdfs] hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.4.0-tests.jar mrbench -maps 100
+
+(pi Test)
+[hduser@localhost hdfs] hadoop jar $HADOOP_INSTALL/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 10 20
+
+(web intergace)
+localhost:50070/
+
+
+(http://alanxelsys.com/2014/02/01/hadoop-2-2-single-node-installation-on-centos-6-5/)
