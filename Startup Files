@@ -1,0 +1,21 @@
+FOR LOGIN SHELLS
+
+/etc/profile
+A golbal configuration script that applies to all users.
+
+~/.bash_profile
+A user's personal startup file. Can be used to extend or override settings in the global configuration script.
+
+~/.bash_login
+If ~/.bash_profile is not found, bash attempts to read this script.
+
+~/.profile
+If neither ~/.bash_profile nor ~/.bash_login is found, bash attempts to read this file.
+
+
+FOR NON-LOGIN SHELL SESSIONS
+/etc/bash.bashrc
+A global configuration script that applies to all users.
+
+~/.bashrc
+A user's personal startup file. Can be used to extend or override settings in the global configuration script.
