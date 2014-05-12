@@ -7,7 +7,9 @@
 # mv /zookeeper-3.4.5 /zookeeper
 
 # cd ~/ && vim .bashrc
-# export ZOOKEEPER=/usr/local/zookeeper/zookeeper/bin
+# export ZOOKEEPER=/usr/local/zookeeper
+# export PATH=$PATH:$ZOOKEEPER/bin
+
 
 # source .bashrc
 # echo $ZOOKEEPER
