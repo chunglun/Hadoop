@@ -1,4 +1,5 @@
---> Configuration parameters at all the levels of the Hadoop framework, JVM, and OS can significantly impact performance of the Hadoop workloads.
+--> Configuration parameters at all the levels of the Hadoop framework, JVM, and OS can significantly 
+    impact performance of the Hadoop workloads.
 
 A. Baseline Configuration
        1. Parameters that will influence the baseline configuration
@@ -28,7 +29,9 @@ A. Baseline Configuration
              # of map slots per hardware core = 2
              # of reduce slot per hardware core = 1
              Initial and max Java heap size for Map/Reduce JVM processes = 1GB
-            * 3 JVM processes per hardware core at any given time consuming as much as 3GB heap per hardware core. There are 4GB RAM per hardware core available on the systems; the rest 1GB of memory per hardware core was left for OS buffers and caches.
+            * 3 JVM processes per hardware core at any given time consuming as much as 3GB heap per 
+              hardware core. There are 4GB RAM per hardware core available on the systems; the rest 
+              1GB of memory per hardware core was left for OS buffers and caches.
 
 
 (http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
