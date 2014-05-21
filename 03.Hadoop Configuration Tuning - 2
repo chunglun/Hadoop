@@ -3,7 +3,7 @@ B. Data Disk Scaling
             (1) mapred.local.dir in mapred-site.xml
             (2) dfs.name.dir and dfs.data.dir in hdfs-site.xml
 
-C. Comparession
+C. Compression
        1. Hadoop supports compression at 3 levels:
             (1) input data
             (2) intermediate Map output data
