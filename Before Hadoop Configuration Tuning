@@ -9,3 +9,6 @@ B. Upgrade Software Component
        - Other third-party libraries that the Hadoop framework depends on
 C. Performing Stress Tests
        - Hadoop micro-benchmarks (DFSIO, NNBemch, MRBench): used to stress test the setup of Hadoop framework
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
