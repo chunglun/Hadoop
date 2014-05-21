@@ -1,0 +1,24 @@
+--> Default values of certain OS parameters and Hadoop configuration parameters could either cause Map/Reduce task and Hadoop job failures or could cause sizeable regression in performance.
+
+A. OS Parameters
+       1. Default maximum number of open file descriptors (FD)
+             Configured using ulimit command
+             Can cause FDs to exhaust depending on the nature of Hadoop workload and then cause job failures
+             Ex: testing set it to 32768
+        2. The Linux kernel parameter: net.core.somaxconn
+             Fetch failures could occur while running Hadoop jobs with out-of-the-box settings.
+             Fetch failures could be caused due to lower value of net.core.somaxconn
+             Default value = 128; If required, increase this value to a sufficiently large value
+             Ex: testing set it to 1024
+
+B. Hadoop Parameters
+       1. mapred.task.timeout in mapred-site.xml
+             Map/Reduce tasks may not indicate their progress for a period of time which exceeds this property
+             Default value = 600 seconds; if required, increase this value per the workload requirements.
+             If there are task hang-ups due to hardware, cluster setup and workload implementation issues then increasing this value to an abnormally large value could mask it from Hadoop framework. This in turn can cause performance regressions.        
+      2. dfs.socket.timeout and dfs.datanode.socket.write.timeout in hdfs-site.xml
+             If java.net.SocketTimeoutException exceptions say something like “timeout while waiting for channel to be ready for read/write”
+             Then increase these property values to an acceptable level.
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
