@@ -1,0 +1,20 @@
+B. Data Disk Scaling
+        Change the # of data disks
+            (1) mapred.local.dir in mapred-site.xml
+            (2) dfs.name.dir and dfs.data.dir in hdfs-site.xml
+
+C. Comparession
+       1. Hadoop supports compression at 3 levels:
+            (1) input data
+            (2) intermediate Map output data
+            (3) Reduce output data
+       2. Hadoop supports multiple codecs that can be used for performing compression and decompression
+       3. Enable Map output compression reduces the disk and network IO overhead at the expense of CPU 
+          cycles necessary for compression and decompression.
+
+        Related parameters in mapred-site.xml:
+             (1) mapred.compress.map.output
+             (2) mapred.map.output.compression.codec
+             (3) mapred.output.compress
+             (4) mapred.output.compression.type
+             (5) mapred.output.compression.codec
