@@ -18,3 +18,6 @@ C. Comparession
              (3) mapred.output.compress
              (4) mapred.output.compression.type
              (5) mapred.output.compression.codec
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
