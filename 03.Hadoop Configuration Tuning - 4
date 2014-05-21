@@ -1,0 +1,21 @@
+G. Copy/Shuffle Phase Tuning
+       1. If Reduce phase doesn’t complete copying Map outputs soon after all the Map tasks 
+          are executed  poorly configured cluster.
+       2. What causes a slow progressing copy phase?
+            (1) The maximum number of parallel map-output copier threads
+                    mapred.reduce.parallel.copies in mapred-site.xml
+                    default = 5
+                    the limiting factor for the throughput of copy operation
+             (2) The maximum number of  worker threads at TaskTracker level
+                    serve Map outputs to the reducers
+                    tasktracker.http.threads
+                    default = 40
+              (3) For further fune-tuning
+                    dfs.datanode.handler.count in hdfs-site.xml
+                    dfs.namenode.handler.count in hdfs-site.xml
+                    mapred.job.tracker.handler.count in mapred-site.xml
+              (4) Avoiding disk spills on the Reduce side could speed up the copy phase.
+              (5) Network hardware related bottlenecks.
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
