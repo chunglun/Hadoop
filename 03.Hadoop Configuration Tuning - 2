@@ -31,5 +31,23 @@ D. JVM Reuse Policy
         3. Specifically benefit in scenarios where there are large number of very short running tasks.
         4. Example: 2% improvement in performance by enabling JVM reuse.
 
+E.HDFS Block Size
+        1. Each Map task operates on an input split.
+         Parameters decide the size of the input split:
+            (1) mapred.min.split.size in mapred-site.xml
+            (2) mapred.max.split.size in mapred-site.xml
+            (3) dfs.block.size in hdfs-site.xml
+        2. The input split size and the total input data size of the Hadoop workload determines
+           the total number of Map tasks spawned.
+        3. If the Hadoop job is spawning a large number of Map tasks experiment with large HDFS block sizes.
+              Reducing the # of Map tasks can:
+                  - decrease the overhead of starting up and tearing down of Map JVMs.
+                  - reduce the cost in merging map output segments during the Reduce phase
+                  - large block size can increase the execution time taken by each Map task, it’s better to 
+                    run small amount of longer running Map tasks rather than large number of very short 
+                    running Map tasks.
+        4. If Map output size of proportional to the HDFS block size
+              The bigger block size could lead to additional Map-side spills
+
 
 (http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
