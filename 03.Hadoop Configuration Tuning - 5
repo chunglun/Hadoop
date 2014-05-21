@@ -1,0 +1,17 @@
+I. Potential Limitations
+       1. CDH 4.0.1 and earlier releases are affected by a bug in MR
+             MR task failures can occur for a small subset of tasks
+             these failures can induce large regressions and variance in execution time
+       2. Example: long running Reduce tasks fail due to this big:
+              if there are no additional Reduce slots available, then the failed task will
+               not be re-scheduled until there is a free Reduce slot available
+       3. mapred.max.tracker.failures in mapred-site.xml
+             default = 4
+             if any of the TaskTrackers have 4 ore more task failures, then those 
+              TaskTrackers will be blacklisted and no further scheduling of tasks
+        4. Ways to solve this issue:
+             (1) Set mapred.max.tracker.failures to a sufficiently large value
+             or (2) Use a version of Hadoop distribution that fixes this issue
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
