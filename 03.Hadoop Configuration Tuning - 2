@@ -19,5 +19,17 @@ C. Compression
              (4) mapred.output.compression.type
              (5) mapred.output.compression.codec
 
+D. JVM Reuse Policy
+       1. mapred.job.reuse.jvm.num.tasks in mapred-site.xml
+             The parameter governs whether Map/Reduce JVM processes spawned once are re-used for running 
+              more than 1 task.
+             Default value = 1 
+                  * 1 means that the JVM is not re-used for running multiple tasks
+                  * setting this value to -1 means an unlimited number of tasks can be scheduled on a 
+                    particular JVM instance
+        2. Enable JVM reuse policy reduces the overhead of JVM startup and teardown
+        3. Specifically benefit in scenarios where there are large number of very short running tasks.
+        4. Example: 2% improvement in performance by enabling JVM reuse.
+
 
 (http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
