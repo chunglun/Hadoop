@@ -1,0 +1,15 @@
+A. JVM Flags
+       1. AggressiveOpts
+            governs whether certain other optimizations are enabled by the JVM or not
+            the optimizations enabled by these flags could very depending on the JVM version
+            disabled by default on Oracle JDK7 Update 5
+       2. UseCompressedOops
+            compressed ordinary object pointers help reduce memory footprint of 64-bit
+             JVMs at the expense of reduced total addressable Java heap space
+            enabled by default on Oracle JDK7 Update 5
+       3. UseBiasedLocking
+            improves performance in situations where locks are generally un-contended
+            enabled by default on Oracle JDK7 Update 5
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
