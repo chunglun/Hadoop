@@ -1,0 +1,46 @@
+F. Map-side Spills
+        While Map tasks are running, the generated intermediate output is stored into a buffer.
+         This buffer is a chuck of reserved memory that is part of Map JVM heap space.
+          A part of this buffer is reserved for storing metadata for the spilled records.
+        Each metadata record is 16 bytes.
+        Contents if this buffer are spilled to the disks as soon as a certain threshold of
+         occupancy is reached.
+       1. Related parameters:
+           (1) io.sort.mb in mapred-site.xml
+               * default size = 100 MB   
+           (2) io.sort.record.percent in mapred-site.xml
+               * default = 0.05 (5%)
+           (3) io.sort.spill.percent in mapred-site.xml
+               * default = 0.8 (80%)
+        Spilling Map output to the disk multiple times can lead to additional overhead of  
+         reading and merging of the spilled records.
+        If there is sufficient Java heap memory available for Map JVMs, eliminate all
+         intermediate spills and just spill the final output.
+        If there is a limitation on available heap, minimize the # of spills by tuning 
+         io.sort.record.record.percent.
+
+       2. How to detect if the Map phase is performing additional spills?
+             Look at “Map output records” and “Spilled records” counter of JobTracker 
+              web interface for the job immediately after the Map phase is complete.
+             If the # of spilled records > Map output records, then additional spilling is occuring.
+
+       3. Approach to completely utilize the Map output buffer:
+             Determine total size of the Map output and the total # of records contained in this output
+             Configure io.sort.mb property
+             Set io.sort.spill.percent to 0.99
+            
+       4. The size of the buffer would need to be increased slightly over the total buffer space requirements.
+             Spilling are observed when additional space on top of Map output data and record buffer are 
+              not allowed.
+
+       5. Example: 
+             to completely eliminate Map-side spills, set parameters:
+                  HDFS block size = 256 MB
+                  each record = 100 byte
+                  io.sort.mb = 316 MB
+                  io.sort.record.percent = 0.162
+                  io.sort.spill.percent = 0.99
+             2.64% improvement in execution time from eliminating Map-side spills.
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
