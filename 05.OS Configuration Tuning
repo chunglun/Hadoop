@@ -1,0 +1,34 @@
+A. Transparent Huge Pages (THP)
+       1. THP feature of RHEL 6.2 and above aims at simplifying management of huge pages.
+       2. Hadoop workloads with THP feature enabled
+             high kernel space CPU utilization caused by the compaction process of THP
+             cause large regressions
+             Ex: test noticed as much as 66% regression with THP enabled
+             disable THP feature
+
+B. File System Choice And Attributes
+       1. The choice of file system can have significant impact on performance of Hadoop
+          workload especially for IO intensive workloads
+             Test shows EXT4 supported by RHEL 6.3 is significantly better than EXT3
+       2. In the absence of noatime attribute, every file read operation triggers a disk
+          write operation for maintaining last access time of the file.
+             disable this metadata logging by adding noatime attribute to the FS mount
+              options of the data disks
+             Ex: test noticed 29% improvement in performance by using noatime
+            
+C. IO Scheduler Choice
+       1. Majority of Linux distributions support 4 type of IO schedulers: 
+           (1) CFQ
+           (2) deadline
+           (3) noop
+           (4) anticipatory
+       2. Depending on pattern of IO operations, the hardware configuration of IO 
+          subsystem and the requirements of the application, a particular IO scheduler
+          may perform better
+       3. The default IO scheduler vary depending on the Linux distribution
+             Ubuntu 11.04 uses deadline
+             RHEL 6.3 users CFQ
+             Ex: test noticed 15% improvement by using CFQ instead of deadline
+
+
+(http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf)
